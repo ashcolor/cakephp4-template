@@ -15,7 +15,7 @@ services:
         volume:
           nocopy: true
       - type: bind
-        source: ./app
+        source: .
         target: /work/app
       - type: volume
         source: psysh-store
@@ -46,7 +46,7 @@ services:
         volume:
           nocopy: true
       - type: bind
-        source: ./app
+        source: .
         target: /work/app
 
   db:
