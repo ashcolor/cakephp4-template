@@ -3,9 +3,11 @@ up:
 build:
 	docker compose build --no-cache --force-rm
 init:
+	cp .env.example .env
+	sed -i -e 's/127.0.0.1/$(IP)/g' .env
 	docker compose up -d --build
-	docker compose exec app cp .env.example .env
-	@make fresh
+	@make composer-install
+#	@make fresh
 remake:
 	@make destroy
 	@make init
@@ -44,3 +46,9 @@ app:
 	docker compose exec app bash
 db:
 	docker compose exec db bash
+
+##### composer #####
+composer-install:
+	docker compose exec app composer install
+composer-update:
+	docker compose exec app composer update
