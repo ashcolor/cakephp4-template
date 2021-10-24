@@ -1,4 +1,4 @@
 .idea
 #Docker
 .env
-docker/mysql/data/
+docker/db/data/

@@ -7,7 +7,8 @@ init:
 	sed -i -e 's/127.0.0.1/$(IP)/g' .env
 	docker compose up -d --build
 	@make composer-install
-#	@make fresh
+	# TODO DBサーバの起動を待つ
+	@make fresh
 remake:
 	@make destroy
 	@make init
@@ -47,8 +48,30 @@ app:
 db:
 	docker compose exec db bash
 
-##### composer #####
+##### Composer #####
 composer-install:
 	docker compose exec app composer install
 composer-update:
 	docker compose exec app composer update
+
+##### CakePHPコマンド #####
+# マイグレーションを適用
+migrate:
+	docker compose exec web bin/cake migrations migrate
+# DB初期化
+fresh:
+	docker compose exec web bin/cake migrations rollback -t 0
+	@make migrate
+	@make seed
+# 初期データ投入
+seed:
+	docker compose exec web bin/cake migrations seed --seed InitSeed
+# キャッシュクリア
+cache-clear:
+	docker compose exec web bin/cake cache clear_all
+
+###### デプロイコマンド #####
+deploy:
+	git pull
+	@make migrate
+	@make cache-clear
