@@ -1,13 +1,27 @@
 # Dockerテンプレート(php8+MySQL8+Nginx)
 
-- CakePHP4用での使用を想定
+## 概要
+
+- php8+mysql8+Nginx環境のDockerテンプレート
+- CakePHP4での使用を想定
 
 ## 必要なソフトウェア
 
 - [Docker](https://www.docker.com/)
+   - [Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
+   - [Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-windows/)
 - [Docker Compose](https://docs.docker.jp/compose/toc.html)
 - [Makefile](http://www.gnu.org/software/make/)
 
+※各種DockerアプリとDocker ComposeはDocker Desktopに同梱
+
+※MakefileはMacの場合はXcodeのコマンドラインツールに同梱
+## 既存プロジェクトへの配置手順
+
+1. ファイルを既存プロジェクトのルートディレクトリに配置
+2. env.exampleの`MYSQL_USER`、`MYSQL_PASSWORD` 、`MYSQL_DATABASE`をアプリケーション側の設定と合わせる
+3. CakePHPの`./config/app_local.php`の`Datasources.default.host`を`db`に書き換える
+     
 ## 開発環境構築手順
 
 0. Macの場合は以下のコマンドを実行 （他のプロジェクトで設定済みの場合は不要）
@@ -31,6 +45,15 @@
     make init IP=127.0.0.*
     ```
 
+2. ホストの/etc/hostsに設定したIPとドメインの対応を記載する
+
+    ```bash
+    sudo vi /etc/hosts
+    ```
+    ```hosts
+    127.0.0.* myapp.local
+    ```
+   
 ## 参考
 
 - [【超入門】20分でLaravel開発環境を爆速構築するDockerハンズオン](https://qiita.com/ucan-lab/items/56c9dc3cf2e6762672f4)
