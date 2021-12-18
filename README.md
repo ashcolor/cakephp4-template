@@ -10,17 +10,25 @@
 
 ## 開発環境構築手順
 
-0. Macの場合は次に設定するIPに対して以下のコマンドを実行
+0. Macの場合は以下のコマンドを実行 （他のプロジェクトで設定済みの場合は不要）
 
     ```bash
-    sudo ifconfig lo0 alias 127.*.*.* up
-    ```
+    cat <<EOL > /usr/local/etc/set_loopback_address
+    #!/bin/bash
+    for ((i=1;i<255;i++))
+    do
+    sudo ifconfig lo0 alias 127.0.0.\$i up
+    done
+    EOL
+    chmod 777 /usr/local/etc/set_loopback_address
+    sudo /usr/local/etc/set_loopback_address
+    sudo defaults write com.apple.loginwindow LoginHook /usr/local/etc/set_loopback_address
+   ```
 
-
-1. IPに127.0.0.1~127.255.255.254の値を設定して以下のコマンドを実行
+1. IPに127.0.0.1~127.0.0.255の値を設定して以下のコマンドを実行
 
     ```bash
-    make init IP=127.*.*.*
+    make init IP=127.0.0.*
     ```
 
 ## 参考
