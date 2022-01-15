@@ -1,9 +1,9 @@
-# Dockerテンプレート(php8+MySQL8+Nginx)
+# CakePHP4用テンプレート
 
 ## 概要
 
-- php8+mysql8+Nginx環境のDockerテンプレート
-- CakePHP4での使用を想定
+- CakePHP4用のDockerテンプレート
+- php8+mysql8+Nginx
 
 ## 必要なソフトウェア
 
