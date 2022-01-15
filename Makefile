@@ -3,8 +3,10 @@ up:
 build:
 	docker compose build --no-cache --force-rm
 init:
+ifdef IP
 	cp .env.example .env
 	sed -i '' -e 's/127.0.0.1/$(IP)/g' .env
+endif
 	docker compose up -d --build
 	@make composer-install
 	docker compose exec app chmod -R 777 tmp
