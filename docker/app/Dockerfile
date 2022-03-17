@@ -2,8 +2,7 @@ FROM php:8.0-fpm-bullseye
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
 
 # timezone environment
-ENV TZ=UTC \
-  # locale
+ENV TZ=Asia/Tokyo \
   LANG=ja_JP.UTF-8 \
   LC_ALL=ja_JP.UTF-8 \
   # composer environment
