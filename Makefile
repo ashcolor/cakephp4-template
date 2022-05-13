@@ -7,11 +7,12 @@ ifdef IP
 	cp .env.example .env
 	sed -i '' -e 's/127.0.0.1/$(IP)/g' .env
 endif
-	docker compose up -d --build
+	docker compose up -d --build db
+	docker compose up -d --build app
+	docker compose up -d --build web
 	@make composer-install
 	docker compose exec app chmod -R 777 tmp
 	docker compose exec app chmod -R 777 logs
-	# TODO DBサーバの起動を待つ
 	@make fresh
 remake:
 	@make destroy
