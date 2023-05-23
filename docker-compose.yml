@@ -40,7 +40,8 @@ services:
           nocopy: true
       - type: bind
         source: .
-        target: /work/app:delegated
+        target: /work/app
+        consistency: delegated
     depends_on:
       db:
         condition: service_healthy
