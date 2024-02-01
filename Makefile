@@ -5,7 +5,7 @@ build:
 init:
 ifdef IP
 	cp .env.example .env
-	sed -i '' -e 's/127.0.0.1/$(IP)/g' .env
+	perl -pi -e 's/127.0.0.1$$/$(IP)/g;' .env
 endif
 	docker compose up -d --build db
 	docker compose up -d --build app
